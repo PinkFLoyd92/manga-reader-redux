@@ -4,8 +4,8 @@ import { routerReducer as router } from 'react-router-redux';
 import mangas from './manga';
 
 const rootReducer = combineReducers({
-    mangas,
-    router,
+  mangas,
+  router,
 });
 
 export default rootReducer;
