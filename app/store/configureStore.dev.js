@@ -4,12 +4,17 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
-import * as counterActions from '../actions/counter';
-import type { counterStateType } from '../reducers/counter';
+import * as mangaActions from '../actions/manga';
 
 const history = createHashHistory();
 
-const configureStore = (initialState?: counterStateType) => {
+const state = {
+  mangas: [],
+  fetching: false,
+  fetched: false,
+  error_fetching: null,
+};
+const configureStore = (initialState = state) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -30,7 +35,7 @@ const configureStore = (initialState?: counterStateType) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    ...counterActions,
+    ...mangaActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
