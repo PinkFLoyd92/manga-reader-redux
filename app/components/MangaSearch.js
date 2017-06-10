@@ -1,4 +1,5 @@
 // @flow
+const axios = require('axios');
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -11,13 +12,16 @@ class Manga extends Component {
     }
 
   handleClick() {
-      this.props.addManga("Dragon Ball", this.state.key);
-      this.setState({key : this.state.key+1});
+      this.props.fillMangas();
+      // this.setState({key : this.state.key+1});
   }
 
     
     componentWillMount(){
 	this.props.addManga("One Piece", "testing...");
+	axios.get('http://localhost:8080/').then(response => {
+	    this.props.fillMangas(response.data);
+	});
     }
   render() {
     const { mangas } = this.props;

@@ -5,7 +5,7 @@ import mangas from './manga';
 
 const rootReducer = combineReducers({
     mangas,
-  router,
+    router,
 });
 
 export default rootReducer;

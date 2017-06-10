@@ -5,7 +5,13 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as mangaActions from '../actions/manga';
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
 
+const axios_instance = axios.create({ //all axios can be used, shown in axios documentation
+  baseURL:'http://localhost:8080',
+  responseType: 'json'
+});
 const history = createHashHistory();
 
 const state = {
@@ -32,6 +38,7 @@ const configureStore = (initialState = state) => {
   // Router Middleware
   const router = routerMiddleware(history);
   middleware.push(router);
+  middleware.push(axiosMiddleware(axios_instance));
 
   // Redux DevTools Configuration
   const actionCreators = {
