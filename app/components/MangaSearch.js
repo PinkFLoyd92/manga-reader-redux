@@ -12,12 +12,13 @@ class Manga extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleMangaClick = this.handleMangaClick.bind(this);
     this.state = { key: 0, value: '' };
   }
 
 
-  componentWillMount() {
+ componentWillMount() {
+      console.log(this.props);
     axios.get('http://localhost:8080/')
   .then(response => this.props.fillMangas(response.data))
   .catch(err => {
@@ -27,7 +28,17 @@ class Manga extends Component {
   }
 
   handleClick() {
-    this.props.fillMangas();
+    //this.props.selectManga('one_piece');
+    //this.props.history.push('/Info');
+    //this.props.fillMangas();
+      // this.setState({key : this.state.key+1});
+  }
+
+  handleMangaClick(e) {
+    console.log(e.target.value);
+    this.props.select(e.target.value);
+    //this.props.history.push('/Info');
+    //this.props.fillMangas();
       // this.setState({key : this.state.key+1});
   }
 
@@ -41,13 +52,17 @@ class Manga extends Component {
     return 'warning';
   }
   render() {
-    const { mangas } = this.props;
+      const { mangas } = this.props;
     let mangaLi = null;
     let filteredMangas = [];
     if (mangas !== undefined) {
       filteredMangas = mangas.filter((manga) => manga.name.includes(this.state.value), this);
       mangaLi = filteredMangas.map((manga) =>
-        <li key={manga.description}>{manga.name}</li>);
+        (<li key={manga.description}>{manga.name}
+          <Button onClick={this.handleMangaClick} value={manga.name}>
+ Click me!
+ </Button>
+        </li>));
     } else {
       mangaLi = <p>No hay mangas..</p>;
     }
@@ -92,7 +107,9 @@ class Manga extends Component {
 
 Manga.propTypes = {
   mangas: PropTypes.array.isRequired,
+    selectedManga: PropTypes.string,
   addManga: PropTypes.func.isRequired,
-  fillMangas: PropTypes.func.isRequired
+  fillMangas: PropTypes.func.isRequired,
+  select: PropTypes.func.isRequired
 };
 export default Manga;

@@ -5,7 +5,8 @@ import * as MangaActions from '../actions/manga';
 
 function mapStateToProps(state) {
   return {
-    mangas: state.mangas
+    mangas: state.mangas,
+    selectedManga: state.selectedManga
   };
 }
 

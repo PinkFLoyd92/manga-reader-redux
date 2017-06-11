@@ -8,15 +8,15 @@ import * as mangaActions from '../actions/manga';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 
-const axios_instance = axios.create({ //all axios can be used, shown in axios documentation
-  baseURL:'http://localhost:8080',
+const axios_instance = axios.create({ // all axios can be used, shown in axios documentation
+  baseURL: 'http://localhost:8080',
   responseType: 'json'
 });
 const history = createHashHistory();
 
 const state = {
   mangas: [],
-    selectedManga: '',
+  selectedManga: '',
   fetching: false,
   fetched: false,
   error_fetching: null,

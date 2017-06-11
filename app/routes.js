@@ -8,8 +8,8 @@ import MangaInfo from './containers/MangaInfo';
 export default () => (
   <App>
     <Switch>
-      <Route path="/" component={MangaSearch} />
       <Route path="/Info" component={MangaInfo} />
+      <Route path="/" component={MangaSearch} />
     </Switch>
   </App>
 );
