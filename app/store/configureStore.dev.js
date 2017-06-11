@@ -16,6 +16,7 @@ const history = createHashHistory();
 
 const state = {
   mangas: [],
+    selectedManga: '',
   fetching: false,
   fetched: false,
   error_fetching: null,

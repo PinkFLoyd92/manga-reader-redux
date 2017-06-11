@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-// import { LinkContainer } from 'react-router-bootstrap';
-import { HelpBlock, Row, Grid, Col, PageHeader, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Button, HelpBlock, Row, Grid, Col, PageHeader, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const axios = require('axios');
@@ -82,6 +83,8 @@ class Manga extends Component {
         <div role="textbox" onClick={this.handleClick}>
           {mangaLi}
         </div>
+
+        <Link to="/Info"> Go to link Page</Link>
       </Grid>
     );
   }
