@@ -1,4 +1,10 @@
 var express = require('express');
+var fs = require('fs');
+var config;
+fs.readFile('./config/config.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    config = JSON.parse(data);
+});
 var router = express.Router();
 import mangas from './delete/directories';
 
@@ -13,8 +19,15 @@ router.get('/', function (req, res) {
 });
 // define the about route
 router.get('/mangas', function (req, res) {
-    console.info('SENDING MANGAS DIRECTORIES');
-    res.send(mangas);
+    const mapMangaDir = new Map();
+    let directories = [];
+    fs.readdir(config.directory, (err, files) => {
+        directories = files;
+        directories.forEach((dir) => {
+            mapMangaDir.set(dir,`${config.directory}/${dir}`);
+        });
+        res.send(mapMangaDir);
+    });
 });
 
-module.exports = router
+module.exports = router;
