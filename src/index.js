@@ -25,7 +25,15 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
     applyMiddleware(axiosMiddleware(client)));
 
-const store = createStore(reducers, enhancer);
+let initialState = {
+    directories: [], // main directory
+    mangas: [], // here we have the chapters of each manga [{name:bleach, chapters: [{path: 'path', imgPaths: []}]]}]
+    selectedManga: '', //manga.name
+    chapterNumber: -1,
+    pageNumber: -1
+};
+
+const store = createStore(reducers, initialState, enhancer);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

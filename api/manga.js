@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+import mangas from './delete/directories';
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -12,7 +13,8 @@ router.get('/', function (req, res) {
 });
 // define the about route
 router.get('/mangas', function (req, res) {
-    res.send('lalalala');
+    console.info('SENDING MANGAS DIRECTORIES');
+    res.send(mangas);
 });
 
-module.exports = router;
+module.exports = router

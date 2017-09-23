@@ -18,6 +18,11 @@ export default (req, res) => {
 					<!doctype html>
 					<html>
 						<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
 							<title>Mangafox</title>
 						</head>
 						<body>
@@ -31,6 +36,11 @@ export default (req, res) => {
 					<!doctype html>
 					<html>
 						<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
 							<title>My Universal App</title>
 							<link rel='stylesheet' href='bundle.css'>
 						</head>

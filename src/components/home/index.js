@@ -1,49 +1,44 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
 import { Link } from 'react-router';
+import { Navbar, FormGroup, Button, FormControl } from 'react-bootstrap';
 //if(process.env.WEBPACK) require('./index.scss');
-const styleSheet = createStyleSheet('ButtonAppBar', {
-  root: {
-    marginTop: 30,
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
-});
 
 
 class Home extends Component {
-	render() {
-		return (
-<div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton color="contrast" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit">
-            {this.props.MainTitle}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-<Link to='/mangas'>
-					<button>Go to mangas</button>
-</Link>
-    </div>
-		);
-	}
+
+    componentDidMount() {
+        this.props.fetchMangas().then((result) => {
+            console.info('result: ', result);
+        })
+            .catch((error) => {
+                console.info('error: ', error);
+            }
+            );
+    }
+
+    render() {
+        return(
+            <Navbar>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#">Brand</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Navbar.Form pullLeft>
+                        <FormGroup>
+                            <FormControl type="text" placeholder="Search" />
+                        </FormGroup>
+                        {' '}
+                        <Button type="submit">Submit</Button>
+                    </Navbar.Form>
+                </Navbar.Collapse>
+            </Navbar>);
+    }
 }
 
 
-Home.propTypes = {
-  MainTitle: PropTypes.object.isRequired,
-};
 
-export default withStyles(styleSheet)(Home);
+export default Home;

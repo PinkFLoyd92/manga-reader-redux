@@ -3,6 +3,7 @@ import express from 'express';
 import webpack from 'webpack';
 import middleware from './src/middleware';
 import cors from 'cors';
+const bodyParser = require('body-parser')
 
 const app = express();
 const Api = express();
@@ -32,6 +33,7 @@ if(process.env.NODE_ENV === 'development') {
 app.get('*', middleware);
 const mangas = require('./api/manga')
 Api.use(cors())
+Api.use(bodyParser.json())
 Api.use('/api', mangas)
 
 Api.listen(4000, '0.0.0.0', (err) => {
