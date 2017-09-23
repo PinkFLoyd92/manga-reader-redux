@@ -8,6 +8,11 @@ fs.readFile('./config/config.json', 'utf8', function (err, data) {
 var router = express.Router();
 import mangas from './delete/directories';
 
+function fetchImage(name, root_path){
+    var img = fs.readFileSync(`${root_path}/${name}-1/${name}1.jpg`);
+    return img;
+}
+
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
     console.info('Time: ', Date.now());
@@ -24,7 +29,18 @@ router.get('/mangas', function (req, res) {
     fs.readdir(config.directory, (err, files) => {
         directories = files;
         directories.forEach((dir) => {
-            mapMangaDir.set(dir,`${config.directory}/${dir}`);
+            let logo = '';
+            let imagedata = '';
+            try {
+                logo = fetchImage(dir,`${config.directory}/${dir}`);
+                imagedata = new Buffer(logo).toString('base64');  
+            } catch(e) {
+                console.error('Exception..., could not find the image');
+            }
+            mapMangaDir.set(dir, {
+                directory: `${config.directory}/${dir}`,
+                logo: imagedata,
+            });
         });
         res.send(mapMangaDir);
     });

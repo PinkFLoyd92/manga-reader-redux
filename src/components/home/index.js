@@ -1,4 +1,3 @@
-require('react-spinner/react-spinner.css');
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinner';
@@ -9,9 +8,11 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            value:'',
             fetching: true,
             error: false,
         };
+        this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount() {
         this.setState({
@@ -28,26 +29,38 @@ class Home extends Component {
                 this.setState({
                     error: true,
                 });
-
-                console.info('error: ', error);
+                console.error('error: ', error);
             }
             );
     }
 
+    handleChange(e){
+        this.setState({
+            value: e.target.value
+        });
+    }
+  getSrc(mangaItem){
+    console.info(mangaItem)
+    /* return `${mangaItem[1].directory}/${mangaItem[0]}-1/${mangaItem[0]}1.jpg`;*/
+    return `data:image/gif;base64,${mangaItem[1].logo}`;
+  }
     render() {
         let mapMangas = this.props.mangas;
         const items = mapMangas.map((mangaItem) => {
-            return(<Col sm={6} md={3}>
-                <Thumbnail src="{mangaItem[1]}/temporal" alt="242x200">
-                    <h3>{mangaItem[0]}</h3>
-                    <p>Missing description</p>
-                    <p>
-                        <Button bsStyle="primary">Check Manga!</Button>&nbsp;
-                    </p>
-                </Thumbnail>
-            </Col>
-            );
-            
+            if(mangaItem[0].indexOf(this.state.value) !== -1){
+              const src = this.getSrc(mangaItem);
+              //const src = '/assets/image.jpg'
+                return(<Col sm={6} md={3}>
+                    <Thumbnail src={src} responsive>
+                        <h5>{mangaItem[0]}</h5>
+                        <p>Missing description</p>
+                        <p>
+                            <Button bsStyle="primary">Check Manga!</Button>&nbsp;
+                        </p>
+                    </Thumbnail>
+                </Col>
+                );
+            }  
         });
         const grid = 
             <Row className="show-grid">
@@ -78,10 +91,14 @@ class Home extends Component {
                     <Navbar.Collapse>
                         <Navbar.Form pullLeft>
                             <FormGroup>
-                                <FormControl type="text" placeholder="Search" />
+                                <FormControl
+                                    type="text"
+                                    placeholder="Search"
+                                    value={this.state.value}
+                                    onChange={this.handleChange}
+                                />
                             </FormGroup>
                             {' '}
-                            <Button type="submit">Submit</Button>
                         </Navbar.Form>
                     </Navbar.Collapse>
                 </Navbar>
