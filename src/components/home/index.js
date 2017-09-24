@@ -40,7 +40,6 @@ class Home extends Component {
         });
     }
   getSrc(mangaItem){
-    console.info(mangaItem)
     /* return `${mangaItem[1].directory}/${mangaItem[0]}-1/${mangaItem[0]}1.jpg`;*/
     return `data:image/gif;base64,${mangaItem[1].logo}`;
   }
@@ -50,8 +49,8 @@ class Home extends Component {
             if(mangaItem[0].indexOf(this.state.value) !== -1){
               const src = this.getSrc(mangaItem);
               //const src = '/assets/image.jpg'
-                return(<Col sm={6} md={3}>
-                    <Thumbnail src={src} responsive>
+                return(<Col sm={6} md={3} key={mangaItem[0]}>
+                    <Thumbnail src={src}>
                         <h5>{mangaItem[0]}</h5>
                         <p>Missing description</p>
                         <p>
