@@ -9,7 +9,11 @@ var router = express.Router();
 import mangas from './delete/directories';
 
 function fetchImage(name, root_path){
-    var img = fs.readFileSync(`${root_path}/${name}-1/${name}1.jpg`);
+    var img = null;
+    const files = fs.readdirSync(`${root_path}`);
+    if(files.length > 0) {
+        img = fs.readFileSync(`${root_path}/${files[0]}/${name}1.jpg`);
+    }
     return img;
 }
 
