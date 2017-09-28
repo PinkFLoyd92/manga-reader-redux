@@ -1,5 +1,7 @@
 var express = require('express');
 var fs = require('fs');
+import { fetchImage } from '../helpers/helpers';
+
 var config;
 fs.readFile('./config/config.json', 'utf8', function (err, data) {
     if (err) throw err;
@@ -7,25 +9,13 @@ fs.readFile('./config/config.json', 'utf8', function (err, data) {
 });
 var router = express.Router();
 
-function fetchImage(name, root_path){
-    var img = null;
-    const files = fs.readdirSync(`${root_path}`);
-    if(files.length > 0) {
-        img = fs.readFileSync(`${root_path}/${files[0]}/${name}1.jpg`);
-    }
-    return img;
-}
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
     console.info('Time: ', Date.now());
     next();
 });
-// define the home page route
-router.get('/', function (req, res) {
-    res.send('Birds home page');
-});
-// define the about route
+
 router.get('/mangas', function (req, res) {
     const mapMangaDir = new Map();
     let directories = [];
