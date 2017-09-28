@@ -43,6 +43,7 @@ Api.listen(4000, '0.0.0.0', (err) => {
         console.info('API RUNNING AT PORT: 4000');
     }
 });
+
 app.listen(3000, '0.0.0.0', (err) => {
     if(err) {
         console.error(err);

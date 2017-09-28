@@ -39,16 +39,14 @@ class Home extends Component {
             value: e.target.value
         });
     }
-  getSrc(mangaItem){
-    /* return `${mangaItem[1].directory}/${mangaItem[0]}-1/${mangaItem[0]}1.jpg`;*/
-    return `data:image/gif;base64,${mangaItem[1].logo}`;
-  }
+    getSrc(mangaItem){
+        return `data:image/gif;base64,${mangaItem[1].logo}`;
+    }
     render() {
         let mapMangas = this.props.mangas;
         const items = mapMangas.map((mangaItem) => {
             if(mangaItem[0].indexOf(this.state.value) !== -1){
-              const src = this.getSrc(mangaItem);
-              //const src = '/assets/image.jpg'
+                const src = this.getSrc(mangaItem);
                 return(<Col sm={6} md={3} key={mangaItem[0]}>
                     <Thumbnail src={src}>
                         <h5>{mangaItem[0]}</h5>

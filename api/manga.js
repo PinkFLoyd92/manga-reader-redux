@@ -6,7 +6,6 @@ fs.readFile('./config/config.json', 'utf8', function (err, data) {
     config = JSON.parse(data);
 });
 var router = express.Router();
-import mangas from './delete/directories';
 
 function fetchImage(name, root_path){
     var img = null;
