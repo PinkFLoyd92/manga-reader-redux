@@ -38,6 +38,12 @@ var rootQuery = new GraphQLObjectType({
                     }
                 }
             }
+        },
+        mangas: {
+            type: new GraphQLList(MangaType),
+            resolve(parentValue, args) {
+                return mangas;
+            }
         }
     }
 });
