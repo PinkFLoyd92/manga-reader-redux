@@ -1,16 +1,16 @@
 import express from 'express';
 import cors from 'cors';
-import { connection } from './db/schema';
+const MongoClient = require('mongodb').MongoClient;
 let schema = null;
-connection.then((res) => {
-    schema = res;
-    // console.info('Schema info: ', schema);
-    const graphqlHTTP = require('express-graphql');
-    const bodyParser = require('body-parser');
-    const mangas = require('./api/manga');
+const graphqlHTTP = require('express-graphql');
+const bodyParser = require('body-parser');
+const mangas = require('./api/manga');
 
-
-    const Api = express();
+    MongoClient.connect('mongodb://localhost:27017/mangadb', function (err, db) {
+        if (err) reject(err);
+        const schema = require('./db/schema')(db);
+        // console.info('Checking schema Info', schema);
+        const Api = express();
 
     Api.use(cors());
     Api.use(bodyParser.json());
@@ -27,6 +27,7 @@ connection.then((res) => {
         } else {
             console.info('API RUNNING AT PORT: 4000');
         }
-    });
+    // });
 
+    }); //mongo
 });
