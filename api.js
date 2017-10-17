@@ -4,7 +4,7 @@ import { connection } from './db/schema';
 let schema = null;
 connection.then((res) => {
     schema = res;
-    console.info('Schema info: ', schema);
+    // console.info('Schema info: ', schema);
     const graphqlHTTP = require('express-graphql');
     const bodyParser = require('body-parser');
     const mangas = require('./api/manga');
