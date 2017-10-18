@@ -1,9 +1,9 @@
 const Manga = `
 type Manga {
-    id: Int!
     name: String
     path: String
+    all: [Manga]!
   }
-`;
+`
 
 export default Manga;

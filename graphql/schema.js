@@ -1,26 +1,29 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import Manga from './models/manga';
+import resolvers from './resolvers/index';
 
 let schema = null;
 
 //mangas: id, name
 
-    const RootQuery =
-              `
-  type RootQuery {
-    hello: String
+const RootQuery =
+`
+  type Query {
+    mangas(name: String): [Manga]
   }
 `;
 
 const SchemaDefinition = `
   schema {
-    query: RootQuery
+    query: Query
   }
 `;
 
 schema = makeExecutableSchema({
     typeDefs: [SchemaDefinition, RootQuery, Manga],
-    resolvers:{}
+    resolvers: resolvers,
+    // allowUndefinedInResolve :false, // optional
+    // resolverValidationOptions: {}, // optional
 });
 
 export default schema;

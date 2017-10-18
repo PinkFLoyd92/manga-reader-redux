@@ -1,14 +1,27 @@
-module.exports = (db) => {
-    const resolver = {
-        User: {
-            auth: (password) => {
-                db.collection('users').find().toArray(function (err, result) {
-                    if (err) throw err;
-                    console.info(result);
-                    return result;
+import { Manga as mangaModel } from '../../db/models/Manga';
+
+const resolver = {
+    Query: {
+        mangas(obj, args, context, info) {
+            let mangas = new Promise((resolve, reject) => {
+                mangaModel.find({ name:args.name }, function (err, mangas) {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    // console.info(mangas)
+                    resolve(mangas);
                 });
-            }
+                
+            });
+            return mangas;
+        },
+    },
+    Manga: {
+        all: () => {
+            return 'testing...';
         }
-    };
-    return resolver;
+    }
 };
+
+export { resolver };
