@@ -1,16 +1,18 @@
 import express from 'express';
 import cors from 'cors';
-const MongoClient = require('mongodb').MongoClient;
-let schema = null;
 const graphqlHTTP = require('express-graphql');
 const bodyParser = require('body-parser');
 const mangas = require('./api/manga');
+const mongoose = require('mongoose');
+let schema = null;
 
-    MongoClient.connect('mongodb://localhost:27017/mangadb', function (err, db) {
-        if (err) reject(err);
-        const schema = require('./db/schema')(db);
-        // console.info('Checking schema Info', schema);
-        const Api = express();
+mongoose.connect('mongodb://localhost:27017/mangadb');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    const schema = require('./graphql/schema');
+    // console.info('Checking schema Info', schema);
+    const Api = express();
 
     Api.use(cors());
     Api.use(bodyParser.json());

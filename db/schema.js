@@ -1,28 +1,8 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import Manga from './models/manga';
+import { Manga } from './models/Manga';
+import { User } from './models/User';
+import { Chapter } from './models/Chapter';
 
-module.exports = (db) => {
-let schema = null;
-
-//mangas: id, name
-
-    const RootQuery =
-              `
-  type RootQuery {
-    hello: String
-  }
-`;
-
-const SchemaDefinition = `
-  schema {
-    query: RootQuery
-  }
-`;
-
-        schema = makeExecutableSchema({
-            typeDefs: [SchemaDefinition, RootQuery, Manga],
-            resolvers:{}
-        });
-    return schema;
-}
-
+module.exports = {
+    Manga,
+    User
+};

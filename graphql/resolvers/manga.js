@@ -1,5 +1,4 @@
 module.exports = (db) => {
-
     const resolver = {
         User: {
             auth: (password) => {
