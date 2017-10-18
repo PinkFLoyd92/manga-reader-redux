@@ -4,13 +4,12 @@ const graphqlHTTP = require('express-graphql');
 const bodyParser = require('body-parser');
 const mangas = require('./api/manga');
 const mongoose = require('mongoose');
-let schema = null;
+import schema from './graphql/schema';
 
 mongoose.connect('mongodb://localhost:27017/mangadb');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-    const schema = require('./graphql/schema');
     // console.info('Checking schema Info', schema);
     const Api = express();
 
