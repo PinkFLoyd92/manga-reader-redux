@@ -1,4 +1,4 @@
-import Manga from 'manga';
+import Manga from './manga';
 
 // the path is obtained by concating the manga path and this chapter ch_name
 const User =

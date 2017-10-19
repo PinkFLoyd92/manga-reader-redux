@@ -1,5 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import Manga from './models/manga';
+import User from './models/user';
 import resolvers from './resolvers/index';
 
 let schema = null;
@@ -10,6 +11,7 @@ const RootQuery =
 `
   type Query {
     mangas(name: String): [Manga]
+    authenticate(user: String, password: String): Boolean
   }
 `;
 
@@ -20,7 +22,11 @@ const SchemaDefinition = `
 `;
 
 schema = makeExecutableSchema({
-    typeDefs: [SchemaDefinition, RootQuery, Manga],
+    typeDefs: [SchemaDefinition,
+               RootQuery,
+               Manga,
+               ...User
+              ],
     resolvers: resolvers,
     // allowUndefinedInResolve :false, // optional
     // resolverValidationOptions: {}, // optional
