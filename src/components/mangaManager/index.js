@@ -4,7 +4,7 @@ import Spinner from 'react-spinner';
 import { Navbar, Thumbnail, FormGroup, Button, Col, FormControl, Jumbotron, Row, Grid } from 'react-bootstrap';
 if(process.env.WEBPACK) require('./index.scss');
 
-class Home extends Component {
+class MangaManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -108,4 +108,4 @@ class Home extends Component {
 }
 
 
-export default Home;
+export default MangaManager;

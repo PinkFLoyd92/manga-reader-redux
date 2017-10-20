@@ -1,13 +1,18 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Home from './containers/Home';
+// import Home from './containers/Home';
+import MangaManager from './containers/MangaManager';
+import Login from './containers/Login';
 import App from './containers/App';
 import MangaItem from './containers/MangaItem';
+import {requireAuthentication} from './containers/AuthenticatedComponent';
+
 if(process.env.WEBPACK) require('typeface-roboto');
 
 export default (
-	<Route path='/' component={App}>
-		<Route path='home' component={Home} />
-		<Route path='mangas/(:name)' component={MangaItem} />
-	</Route>
+    <Route path='/' component={App}>
+        <Route path="login" component={Login}/> 
+        <Route path="protected" component={requireAuthentication(MangaManager)} />
+        <Route path='mangas/(:name)' component={requireAuthentication(MangaItem)} /> 
+    </Route>
 );

@@ -15,6 +15,7 @@ const resolver = {
                             expiresIn : 60*60*24
                         });
                         resolve({
+                            user: user.user,
                             token,
                             authenticated: true
                         });

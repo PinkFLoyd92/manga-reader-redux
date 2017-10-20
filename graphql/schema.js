@@ -12,6 +12,7 @@ const RootQuery =
 
 type UserState {
   token: String
+  user: String
   authenticated: Boolean
 }
   type Query {

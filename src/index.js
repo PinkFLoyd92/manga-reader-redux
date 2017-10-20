@@ -19,26 +19,32 @@ const client = axios.create({
 const composeEnhancers =
   typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    }) : compose;
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      }) : compose;
 
 const enhancer = composeEnhancers(
     applyMiddleware(axiosMiddleware(client)));
 
 let initialState = {
     mangas: [], 
+    // authentication
+    token: null,
+    userName: null,
+    isAuthenticated: false,
+    isAuthenticating: false,
+    statusText: null
 };
 
 const store = createStore(reducers, initialState, enhancer);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
-	<Provider store={store}>
-		<Router history={history}>
-			{ routes }
-		</Router>
-	</Provider>,
-	document.getElementById('app')
+    <Provider store={store}>
+        <Router history={history}>
+            { routes }
+        </Router>
+    </Provider>,
+    document.getElementById('app')
 );
 
 if(process.env.NODE_ENV == 'development' && module.hot) {
