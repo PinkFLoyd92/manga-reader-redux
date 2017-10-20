@@ -7,7 +7,7 @@ class App extends Component {
     }
 
     componentDidMount(){
-        browserHistory.push('/home');
+        browserHistory.push('/login');
     }
     render() {
         return (
