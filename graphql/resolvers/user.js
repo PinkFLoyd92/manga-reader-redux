@@ -1,4 +1,5 @@
 import { User as userModel } from '../../db/models/User';
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 const resolver = {
     Query: {
@@ -8,13 +9,26 @@ const resolver = {
                     if (err) {
                         reject(err);
                     }
-                    if(user) resolve(true);
-                    resolve(false);
+                    if(user) {
+                        const payload = { user: user.name };
+                        const token = jwt.sign(payload, 'secretKey', {
+                            expiresIn : 60*60*24
+                        });
+                        resolve({
+                            token,
+                            authenticated: true
+                        });
+                    }
+
+                    resolve({
+                        token: null,
+                        authenticated: false
+                    });
                 });
             });
             return user;
         }
     }
-}
+};
 
 export { resolver };

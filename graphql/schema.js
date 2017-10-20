@@ -9,9 +9,14 @@ let schema = null;
 
 const RootQuery =
 `
+
+type UserState {
+  token: String
+  authenticated: Boolean
+}
   type Query {
     mangas(name: String): [Manga]
-    authenticate(user: String, password: String): Boolean
+    authenticate(user: String, password: String): UserState
   }
 `;
 
