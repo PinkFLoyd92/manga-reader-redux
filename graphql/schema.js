@@ -9,7 +9,6 @@ let schema = null;
 
 const RootQuery =
 `
-
 type UserState {
   token: String
   user: String

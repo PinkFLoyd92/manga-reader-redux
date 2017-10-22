@@ -8,9 +8,22 @@ import reducers from './reducers';
 import routes from './routes';
 import axiosMiddleware from 'redux-axios-middleware';
 import axios from 'axios';
+import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
-const client = axios.create({
+let graphqlClient = new ApolloClient({
+    networkInterface: createNetworkInterface({
+        uri: 'http://localhost:4000/graphql'
+    }),
+});
+export const client = axios.create({
     baseURL:'http://localhost:4000/api',
+    options: { responseType: 'json',
+        headers: { 'Access-Control-Allow-Origin': 'localhost:4000'}
+    }
+});
+
+export const gClient = axios.create({
+    baseURL:'http://localhost:4000/graphql',
     options: { responseType: 'json',
         headers: { 'Access-Control-Allow-Origin': 'localhost:4000'}
     }
@@ -23,27 +36,32 @@ const composeEnhancers =
       }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware(axiosMiddleware(client)));
+    applyMiddleware(axiosMiddleware(client), graphqlClient.middleware()));
 
 let initialState = {
     mangas: [], 
     // authentication
     token: null,
-    userName: null,
+    user: {
+        name: '',
+        password: ''
+    },
     isAuthenticated: false,
     isAuthenticating: false,
-    statusText: null
+    statusText: null,
+    graphqlClient
 };
 
-const store = createStore(reducers, initialState, enhancer);
+const finalReducers = reducers(graphqlClient);
+const store = createStore(finalReducers, initialState, enhancer);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
-    <Provider store={store}>
+    <ApolloProvider store={store} client={graphqlClient}>
         <Router history={history}>
             { routes }
         </Router>
-    </Provider>,
+    </ApolloProvider>,
     document.getElementById('app')
 );
 

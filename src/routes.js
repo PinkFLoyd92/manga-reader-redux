@@ -12,7 +12,7 @@ if(process.env.WEBPACK) require('typeface-roboto');
 export default (
     <Route path='/' component={App}>
         <Route path="login" component={Login}/> 
-        <Route path="protected" component={requireAuthentication(MangaManager)} />
+        <Route path="dash" component={ MangaManager } />
         <Route path='mangas/(:name)' component={requireAuthentication(MangaItem)} /> 
     </Route>
 );
